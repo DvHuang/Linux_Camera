@@ -1,0 +1,32 @@
+all:transfor_pc_server_v4l2_0v9650transfor
+
+# which compiler
+#CC = arm-linux-gcc
+CC=gcc
+
+#Where are include files kept
+INCLUDE = .
+
+# Options for development
+CFLAGS = -O -Wall -g
+
+# Options for release
+# CFLAGS - -O -Wall -ansi
+
+transfor_pc_server_v4l2_0v9650transfor:pc_main.o pc_server.o pc_code.o pc_framebuffer.o
+	$(CC) -o transfor_pc_server_v4l2_0v9650transfor  pc_main.o pc_server.o pc_code.o pc_framebuffer.o
+
+pc_main.o:pc_main.c main.h 
+	$(CC) -I$(INCLUDE) $(CFLAGS) -c pc_main.c main.h
+
+pc_server.o:pc_server.c main.h 
+	$(CC) -I$(INCLUDE) $(CFLAGS) -c pc_server.c main.h 
+	
+pc_code.o:pc_code.c main.h
+	$(CC) -I$(INCLUDE) $(CFLAGS) -c pc_code.c main.h
+   
+pc_framebuffer.o:pc_framebuffer.c main.h
+	$(CC) -I$(INCLUDE) $(CFLAGS) -c pc_framebuffer.c main.h
+
+clean:
+	-rm pc_framebuffer.o pc_code.o pc_server.o pc_main.o transfor_pc_server_v4l2_0v9650transfor
